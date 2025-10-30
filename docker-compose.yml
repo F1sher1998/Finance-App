@@ -6,36 +6,20 @@ services:
     container_name: finance-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: financeuser
-      POSTGRES_PASSWORD: financepass
-      POSTGRES_DB: financedb
+      HOST: localhost
+      POSTGRES_USER: F1sher1998
+      POSTGRES_PASSWORD: 159753789
+      POSTGRES_DB: noblefi
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U financeuser -d financedb"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  redis:
-    image: redis:7-alpine
-    container_name: finance-redis
-    restart: unless-stopped
-    command: redis-server --requirepass redispass --appendonly yes
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d financedb"]
       interval: 10s
       timeout: 5s
       retries: 5
 
 volumes:
   postgres_data:
-    driver: local
-  redis_data:
     driver: local

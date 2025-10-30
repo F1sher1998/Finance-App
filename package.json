@@ -6,12 +6,15 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch --env-file .env main.ts",
-    "start": "node --env-file .env dist/main.js"
+    "start": "node --env-file .env dist/main.js",
+    "start:db": "tsx watch --env-file .env db.ts"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/pg": "^8.15.6",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "nanoid": "^5.1.6",
     "pg": "^8.16.3",
