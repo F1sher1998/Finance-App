@@ -8,6 +8,7 @@
     "resolveJsonModule": true,
     "moduleDetection": "force",
     "isolatedModules": true,
+    "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
 
     /* Strictness */
@@ -30,7 +31,7 @@
     /* If NOT transpiling with TypeScript: */
 
     //"module": "preserve",
-    //"noEmit": true,
+    "noEmit": true,
 
     /* If your code runs in the DOM: */
     

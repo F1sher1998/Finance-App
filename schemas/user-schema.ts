@@ -1,10 +1,21 @@
 import zod from 'zod';
 
 export const UserSchema = zod.object({
-    name: zod.string().min(3, "Name is required"),
+    username: zod.string().min(3, "Name is required"),
     email: zod.string().lowercase().trim().email("Invalid email address"),
-    password: zod.string().min(6, "Password must be at least 6 characters long")
+    password: zod.string().min(6, "Password must be at least 6 characters long"),
+    salary: zod.number().min(0, "Salary must be a positive number"),
 });
 
-export type User = zod.infer<typeof UserSchema>;
+export const UserLogInSchema = zod.object({
+    email: zod.string().lowercase().trim().email("Invalid email address"),
+    password: zod.string().min(6, "Password must be at least 6 characters long"),
+});
+
+export type userschema = zod.infer<typeof UserSchema>;
+export type userlogin = zod.infer<typeof UserLogInSchema>;
+
+
+
+
 

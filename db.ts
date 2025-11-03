@@ -1,7 +1,7 @@
 import {Client} from 'pg';
 import dotenv from 'dotenv';
 
-const client = new Client({
+export const client = new Client({
     user: process.env.DB_USERNAME,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
@@ -16,7 +16,3 @@ client.connect().then(() => {
     console.error('Database connection error:', err.stack);
 });
 
-
-const result = await client.query('SELECT * FROM users');
-
-console.log(result.rows);
