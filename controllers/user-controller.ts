@@ -1,14 +1,11 @@
 import jwt from 'jsonwebtoken';
 import { client } from '../db.ts';
 import { UserSchema, UserLogInSchema } from '../schemas/user-schema.ts';
-import { generateAccessToken } from '../utils/jwt.ts';
+import { generateAccessToken } from '../utils/accessTokenGen.ts';
+import { generateRefreshToken } from '../utils/refreshTokenGEN.ts';
 import dotenv from 'dotenv';
 
 dotenv.config();
-
-
-
-
 
 export const UserRegister = async (req: any, res: any) => {
     const validResult = UserSchema.safeParse(req.body);
@@ -25,12 +22,16 @@ export const UserRegister = async (req: any, res: any) => {
     const user = await client.query('INSERT INTO users (username, email, password, salary) VALUES ($1, $2, $3, $4) RETURNING *', 
         [ParseData.username, ParseData.email, ParseData.password, ParseData.salary]);
 
-    
+    const userId = user.rows[0].id;
 
-    const accessToken = generateAccessToken({
+    
+    const accessToken = await generateAccessToken({
         email: ParseData.email,
         password: ParseData.password,
+        userId: userId,                                       
     });
+
+
 
 
     return res.status(201).json({
