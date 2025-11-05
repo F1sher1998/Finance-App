@@ -2,8 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import mainRouter from './router/main-router.ts';
+import cookieParser from "cookie-parser";
 
 const app = express();
+
+
+app.use(cookieParser())
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
 
 
 app.use(helmet.contentSecurityPolicy({
@@ -12,8 +18,6 @@ app.use(helmet.contentSecurityPolicy({
         scriptSrc: ["'self'"],
     }
 }));
-
-
 app.use(cors(
     {
         origin: 'http://localhost:8000',
@@ -23,7 +27,9 @@ app.use(cors(
 ));
 
 
-app.use(express.json());
+
+
+
 
 const PORT = process.env.PORT || 8000;
 
